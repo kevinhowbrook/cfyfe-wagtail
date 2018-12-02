@@ -1,0 +1,76 @@
+{% load static wagtailuserbar %}
+{% load wagtailcore_tags craigfyfe_tags %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>
+            {% block title %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+                {% with self.get_site.site_name as site_name %}
+                    {% if site_name %}- {{ site_name }}{% endif %}
+                {% endwith %}
+            {% endblock %}
+        </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+        <!-- jQuery library -->
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        {% block extra_css %}
+            {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        {% wagtailuserbar %}
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                        <div class="column col-8 nav-wrapper">
+                                <nav class="clearfix">
+                                    {% menu_primary parent=request.site.root_page %}
+                                </nav>
+                        </div>
+                    <div class="column col-4 header-right">
+                        <div class="row">
+                        <div class="col-8 social-links">
+                            <a class="fb social-link" href="https://www.facebook.com/craigfyfeart" target="_blank"></a>
+                            <a class="instagram social-link" href="https://www.instagram.com/craig_fyfe/" target="_blank"></a>
+                            <a class="twitter social-link" href="https://twitter.com/craig_fyfe_art" target="_blank"></a>
+                        </div>
+                            <a class="toggle-nav" href="#">MENU</a>
+                            <div class="col-4 brand-wrapper">
+                            <a href="{% pageurl request.site.root_page %}" class="branding" title="home">Craig Fyfe</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container main">
+            {% block content %}{% endblock %}
+        </div>
+        <footer class="footer">
+        </footer>
+        {# Global javascript #}
+
+        <script type="text/javascript" src="{% static 'js/all.js' %}"></script>
+
+        {% block extra_js %}
+            {# Override this in templates to add extra javascript #}
+        {% endblock %}
+
+    </body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags  wagtailimages_tags%}
+
+    
+{% block content %}
+{% if page.background_image %}
+{% image page.background_image width-2000 as tmp_photo %}
+    <style>
+        body{
+            background-image: url("{{ tmp_photo.url }}");
+            background-size: cover;
+        }
+    </style>
+{% endif %}
+    <h1>{{ page.title }}</h1>
+    {{ page.body|richtext }}
+{% endblock %}
